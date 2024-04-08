@@ -2,7 +2,7 @@ package crypto
 
 import (
 	"golang.org/x/crypto/pbkdf2"
-	"crypto/sha1"
+	"crypto/sha256"
 	"fmt"
 )
 
@@ -34,5 +34,5 @@ func (g *KeyGenerator) Generate(salt []byte, keySize int) []byte {
 	if g.Iterations == 0 {
 		g.Iterations = 1000 // rails 4 default when setting the session.
 	}
-	return pbkdf2.Key([]byte(g.Secret), salt, g.Iterations, keySize, sha1.New)
+	return pbkdf2.Key([]byte(g.Secret), salt, g.Iterations, keySize, sha256.New)
 }
